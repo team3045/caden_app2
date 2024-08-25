@@ -68,20 +68,30 @@ class HolesFeatureDetailView extends StatelessWidget{
                 ),
                ],
             ),
-          const Padding(
-            padding: EdgeInsets.all(95.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              verticalDirection: VerticalDirection.down,
-              children: [
-                HoleModifyFileButton(),
-                Spacer(),
-                HoleFilePickerTap(title: 'File Picker')
-              ],
-            ),
-          )
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(35.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                verticalDirection: VerticalDirection.down,
+                children: [
+                  const HoleModifyFileButton(),
+                  const Spacer(),
+                  SizedBox(
+                    height: 150,
+                    width: 300,
+                    child: HoleLengthInputBox(
+                      descriptor: 'Feed Rare in/min', 
+                      updateFunction: HolesFeatureState().updateFeedRate, 
+                      appStateVariable: HolesFeatureState().feedRate),
+                  ),
+                  const Spacer(),
+                  const HoleFilePickerTap(title: 'File Picker')
+                ],
+              ),
+            )
           ],
         )
       )
@@ -97,6 +107,7 @@ class HolesFeatureState extends ChangeNotifier {
   ValueNotifier<double> numHolesWidth = ValueNotifier(1); //min 1, max 3
   ValueNotifier<double> spaceBetweenLength = ValueNotifier(0.5); //in
   ValueNotifier<double> spaceBetweenWidth = ValueNotifier(0.5); //in
+  ValueNotifier<double> feedRate = ValueNotifier(1016); //in/min
   //TODO: enum option for hole type or diameter
 
   FilePickerResult? result;
@@ -154,9 +165,8 @@ class HolesFeatureState extends ChangeNotifier {
       notifyListeners();
     }
 
-
-  @override
-  void dispose(){
-    super.dispose();
+  void updateFeedRate(double newVal){
+    feedRate.value = newVal;
+    notifyListeners();
   }
 }

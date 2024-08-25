@@ -14,10 +14,10 @@ class HoleLengthInputBox extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
-        minHeight: 100,
+        minHeight: 50,
         maxHeight: 500,
         minWidth: 100,
-        maxWidth: 200
+        maxWidth: 300
       ),
       padding: const EdgeInsets.all(4.0),
       decoration: const BoxDecoration(
