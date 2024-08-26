@@ -52,8 +52,10 @@ class HoleModifyFileButton extends StatelessWidget {
     fileString =  fileString.replaceFirst(RegExp(r'[F][0-9]+([.]([0-9]+)?)?'), 'F${appState.feedRate.value}');
 
     int lastLoopIndex = fileString.indexOf('EQ')+3;
+    int secondLoopIndex = fileString.indexOf('EQ', lastLoopIndex+1) +3;
 
     fileString = '${fileString.substring(0,lastLoopIndex)}${(appState.numHolesWidth.value).toInt()}${fileString.substring(lastLoopIndex+1)}';
+    fileString = '${fileString.substring(0,secondLoopIndex)}${(appState.numHolesWidth.value).toInt()}${fileString.substring(secondLoopIndex+1)}';
 
     return fileString;
   }
