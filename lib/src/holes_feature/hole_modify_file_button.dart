@@ -27,35 +27,45 @@ class HoleModifyFileButton extends StatelessWidget {
     File file = File(path!);
     String fileString = file.readAsStringSync();
 
-    int startIndex = fileString.indexOf('LL)');
-
-    fileString = fileString.replaceFirst(RegExp(r'[X][0-9]+([.]([0-9]+)?)?'), 'X${appState.widthOffset.value}');
-    fileString = fileString.replaceFirst(RegExp(r'[Y][0-9]+([.]([0-9]+)?)?'), 'Y${appState.lengthOffset.value}');
-    fileString = fileString.replaceFirst(RegExp(r'[L][0-9]+([.]([0-9]+)?)?'), 'L${appState.numHolesWidth.value}', startIndex+3);
-    
-
-    startIndex = fileString.indexOf('L${appState.numHolesWidth.value}');
-    
-    fileString = fileString.replaceFirst(RegExp(r'[L][0-9]+([.]([0-9]+)?)?'), 'L${appState.numHolesLength.value}', startIndex + 3);
-    fileString = fileString.replaceFirst(RegExp(r'[X][0-9]+([.]([0-9]+)?)?'), 'X${appState.spaceBetweenWidth.value}', startIndex+3);
-    fileString = fileString.replaceFirst(RegExp(r'[Y][0-9]+([.]([0-9]+)?)?'), 'Y${appState.lengthOffset.value}', startIndex+3);
-
-    startIndex = fileString.indexOf('#200 + 1');
-
-    fileString =  fileString.replaceFirst(RegExp(r'[Y][0-9]+([.]([0-9]+)?)?'), 'Y${appState.spaceBetweenLength.value}', startIndex);
-
+    //Replace Title
     fileString = fileString.replaceFirst(
       RegExp(r'[(](.*[)])'), 
       '(${appState.numHolesLength.value} x ${appState.numHolesWidth.value} ${appState.spaceBetweenLength.value}in gap) '
     );
 
-    fileString =  fileString.replaceFirst(RegExp(r'[F][0-9]+([.]([0-9]+)?)?'), 'F${appState.feedRate.value}');
+    int startIndex = fileString.indexOf('LL)');
 
-    int lastLoopIndex = fileString.indexOf('EQ')+3;
-    int secondLoopIndex = fileString.indexOf('EQ', lastLoopIndex+1) +3;
+    //Replace First X12.7 and Y12.7, L3
+    fileString = fileString.replaceFirst(RegExp(r'[X][0-9]+([.]([0-9]+)?)?'), 'X${appState.widthOffset.value}');
+    fileString = fileString.replaceFirst(RegExp(r'[Y][0-9]+([.]([0-9]+)?)?'), 'Y${appState.lengthOffset.value}');
+    fileString = fileString.replaceFirst(RegExp(r'[L][0-9]+([.]([0-9]+)?)?'), 'L${(appState.numHolesWidth.value - 1).toInt()}', startIndex+3);
+    
+    startIndex = fileString.indexOf('Y${appState.lengthOffset.value}') + 1;
 
-    fileString = '${fileString.substring(0,lastLoopIndex)}${(appState.numHolesWidth.value).toInt()}${fileString.substring(lastLoopIndex+1)}';
-    fileString = '${fileString.substring(0,secondLoopIndex)}${(appState.numHolesWidth.value).toInt()}${fileString.substring(secondLoopIndex+1)}';
+    //replace second X12.7 Y12.7
+    fileString = fileString.replaceFirst(RegExp(r'[X][0-9]+([.]([0-9]+)?)?'), 'X${appState.spaceBetweenWidth.value}', startIndex+3);
+    fileString = fileString.replaceFirst(RegExp(r'[Y][0-9]+([.]([0-9]+)?)?'), 'Y${appState.lengthOffset.value}', startIndex+3);
+
+
+    startIndex = fileString.indexOf('L${(appState.numHolesWidth.value - 1).toInt()}');
+
+    //Replace Second L3
+    fileString = fileString.replaceFirst(RegExp(r'[L][0-9]+([.]([0-9]+)?)?'), 'L${(appState.numHolesLength.value - 1).toInt()}', startIndex + 2);
+
+
+    //find second L3
+    startIndex = fileString.indexOf('L${(appState.numHolesLength.value - 1).toInt()}', startIndex);
+
+    //replace 3rd L3
+    fileString = fileString.replaceFirst(RegExp(r'[L][0-9]+([.]([0-9]+)?)?'), 'L${(appState.numHolesLength.value - 1).toInt()}', startIndex+3);
+
+    //replace feedrate
+    fileString =  fileString.replaceAll(RegExp(r'[F][0-9]+([.]([0-9]+)?)?'), 'F${appState.feedRate.value}');
+
+    startIndex = fileString.indexOf('G0 X0 ');
+
+    //Replace last Y12.7
+    fileString =  fileString.replaceFirst(RegExp(r'[Y][0-9]+([.]([0-9]+)?)?'), 'Y${appState.spaceBetweenLength.value}', startIndex);
 
     return fileString;
   }
