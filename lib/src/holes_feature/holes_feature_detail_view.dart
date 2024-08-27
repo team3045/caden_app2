@@ -83,7 +83,7 @@ class HolesFeatureDetailView extends StatelessWidget{
                     height: 150,
                     width: 300,
                     child: HoleLengthInputBox(
-                      descriptor: 'Feed Rare in/min', 
+                      descriptor: 'Feed Rare mm/min', 
                       updateFunction: HolesFeatureState().updateFeedRate, 
                       appStateVariable: HolesFeatureState().feedRate),
                   ),
