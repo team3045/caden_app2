@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:caden_app2/src/holes_feature/holes_feature_detail_view.dart';
