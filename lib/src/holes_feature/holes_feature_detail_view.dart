@@ -101,13 +101,13 @@ class HolesFeatureDetailView extends StatelessWidget{
 }
 
 class HolesFeatureState extends ChangeNotifier {
-  ValueNotifier<double> lengthOffset = ValueNotifier(0.5); //in
-  ValueNotifier<double> widthOffset = ValueNotifier(0.5);//in
+  ValueNotifier<double> lengthOffset = ValueNotifier(0.5); //mm, 3 dec
+  ValueNotifier<double> widthOffset = ValueNotifier(0.5);//mm, 3 dec
   ValueNotifier<double> numHolesLength = ValueNotifier(1);
   ValueNotifier<double> numHolesWidth = ValueNotifier(1); //min 1, max 3
-  ValueNotifier<double> spaceBetweenLength = ValueNotifier(0.5); //in
-  ValueNotifier<double> spaceBetweenWidth = ValueNotifier(0.5); //in
-  ValueNotifier<double> feedRate = ValueNotifier(1016); //in/min
+  ValueNotifier<double> spaceBetweenLength = ValueNotifier(0.5); //mm, 3 dec
+  ValueNotifier<double> spaceBetweenWidth = ValueNotifier(0.5); //mm, 3 dec
+  ValueNotifier<double> feedRate = ValueNotifier(1016); //mm/min
   //TODO: enum option for hole type or diameter
 
   FilePickerResult? result;
@@ -120,13 +120,13 @@ class HolesFeatureState extends ChangeNotifier {
 
   factory HolesFeatureState() => _instance;
 
-  void updateLengthOffset(double newOffset){
-    lengthOffset.value = newOffset;
+  void updateLengthOffset(double newOffsetIN){
+    lengthOffset.value = num.parse((newOffsetIN * 25.4).toStringAsFixed(3)).toDouble();
     notifyListeners();
   }
 
-  void updateWidthOffset(double newOffset){
-    widthOffset.value = newOffset;
+  void updateWidthOffset(double newOffsetIN){
+    widthOffset.value = num.parse((newOffsetIN *25.4).toStringAsFixed(3)).toDouble();
     notifyListeners();
   }
 
@@ -143,13 +143,13 @@ class HolesFeatureState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateSpaceBetweenLength(double newGap){
-    spaceBetweenLength.value = newGap;
+  void updateSpaceBetweenLength(double newGapIN){
+    spaceBetweenLength.value = num.parse((newGapIN * 25.4).toStringAsFixed(3)).toDouble();
     notifyListeners();
   }
 
-  void updateSpaceBetweenWidth(double newGap){
-    spaceBetweenWidth.value = newGap;
+  void updateSpaceBetweenWidth(double newGapIN){
+    spaceBetweenWidth.value = num.parse((newGapIN * 25.4).toStringAsFixed(3)).toDouble();
     notifyListeners();
   }
 
