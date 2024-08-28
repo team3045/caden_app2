@@ -19,7 +19,7 @@ class ItemListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sample Items'),
+        title: const Text('Items'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -43,7 +43,7 @@ class ItemListView extends StatelessWidget {
         // Providing a restorationId allows the ListView to restore the
         // scroll position when a user leaves and returns to the app after it
         // has been killed while running in the background.
-        restorationId: 'sampleItemListView',
+        restorationId: 'ItemListView',
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
           final item = items[index];
