@@ -10,8 +10,8 @@ class HoleModifyFileButton extends StatelessWidget {
     super.key,
   });
 
-  static const double maxXLength = 31.0; //in
-  static const double maxYWidth = 4.5; //in
+  static const double maxXLength = 31.0 * 25.4; //mm
+  static const double maxYWidth = 4.5 * 25.4; //mm
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class HoleModifyFileButton extends StatelessWidget {
         if(!isReadyForEdit(context)){
           toastification.show(
 	          context: context,
-            type: ToastificationType.success,
+            type: ToastificationType.error,
             style: ToastificationStyle.flat,
             title: const Text("Your parameters are not allowed"),
             description: const Text(
@@ -34,6 +34,16 @@ class HoleModifyFileButton extends StatelessWidget {
 	);
         } else{
           appState.editFile(modifyFile(context));
+          toastification.show(
+            context: context,
+            type: ToastificationType.success,
+            style: ToastificationStyle.flat,
+            title: const Text("Success"),
+            alignment: Alignment.center,
+            autoCloseDuration: const Duration(seconds: 4),
+            primaryColor: const Color(0xff4682b4),
+            boxShadow: lowModeShadow,
+          );
         }
       }, 
       child: const Text("Modify"),
@@ -99,6 +109,10 @@ class HoleModifyFileButton extends StatelessWidget {
     double numHolesWidth = appState.numHolesWidth.value - 1;
     double xSpacing = appState.spaceBetweenLength.value;
     double ySpacing = appState.spaceBetweenWidth.value;
+
+    if(appState.result == null){
+      return false;
+    }
 
     return (xOff+numHolesLength*xSpacing <= maxXLength) &&
       (yOff + numHolesWidth*ySpacing <= maxYWidth);

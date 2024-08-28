@@ -56,7 +56,7 @@ class HoleLengthInputBox extends StatelessWidget{
             child: ValueListenableBuilder<double>(
               valueListenable: appStateVariable,
               builder: (context, value, child) {
-                return Text("Selected $descriptor: ${appStateVariable.value}");
+                return Text("Selected $descriptor: ${appStateVariable.value} in mm");
               }
             ),
           )

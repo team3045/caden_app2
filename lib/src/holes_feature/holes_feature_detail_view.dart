@@ -101,12 +101,12 @@ class HolesFeatureDetailView extends StatelessWidget{
 }
 
 class HolesFeatureState extends ChangeNotifier {
-  ValueNotifier<double> lengthOffset = ValueNotifier(0.5); //mm, 3 dec
-  ValueNotifier<double> widthOffset = ValueNotifier(0.5);//mm, 3 dec
+  ValueNotifier<double> lengthOffset = ValueNotifier(0.5*25.4); //mm, 3 dec
+  ValueNotifier<double> widthOffset = ValueNotifier(0.5*25.4);//mm, 3 dec
   ValueNotifier<double> numHolesLength = ValueNotifier(1);
   ValueNotifier<double> numHolesWidth = ValueNotifier(1); //min 1, max 3
-  ValueNotifier<double> spaceBetweenLength = ValueNotifier(0.5); //mm, 3 dec
-  ValueNotifier<double> spaceBetweenWidth = ValueNotifier(0.5); //mm, 3 dec
+  ValueNotifier<double> spaceBetweenLength = ValueNotifier(0.5*25.4); //mm, 3 dec
+  ValueNotifier<double> spaceBetweenWidth = ValueNotifier(0.5*25.4); //mm, 3 dec
   ValueNotifier<double> feedRate = ValueNotifier(1016); //mm/min
   //TODO: enum option for hole type or diameter
 
