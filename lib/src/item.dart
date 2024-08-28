@@ -5,5 +5,5 @@ class Item {
   final String itemName;
   final String route;
 
-  Item({this.itemName = ' Item', this.route = ItemDetailsView.routeName});
+  Item({this.itemName = 'Sample Item', this.route = ItemDetailsView.routeName});
 }
